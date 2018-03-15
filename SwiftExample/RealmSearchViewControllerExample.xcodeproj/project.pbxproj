@@ -165,6 +165,7 @@
 				TargetAttributes = {
 					A0EF1AE31BBE01D100DC7122 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 95SQZWPATT;
 						LastSwiftMigration = 0820;
 					};
 				};
@@ -229,12 +230,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RealmSearchViewControllerExample/Pods-RealmSearchViewControllerExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TOWebViewController/TOWebViewController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TOWebViewController.framework",
@@ -389,6 +392,7 @@
 			baseConfigurationReference = 9E7C1E85D0DA7876595BB9F9 /* Pods-RealmSearchViewControllerExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 95SQZWPATT;
 				INFOPLIST_FILE = RealmSearchViewControllerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Realm.RealmSearchViewControllerExample;
@@ -402,6 +406,7 @@
 			baseConfigurationReference = 767F08E4BAC218B602D10EF8 /* Pods-RealmSearchViewControllerExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 95SQZWPATT;
 				INFOPLIST_FILE = RealmSearchViewControllerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Realm.RealmSearchViewControllerExample;

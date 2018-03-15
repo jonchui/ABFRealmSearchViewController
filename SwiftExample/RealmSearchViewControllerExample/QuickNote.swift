@@ -15,10 +15,6 @@ class QuickNote: Object, Mappable {
     dynamic var note = ""
     dynamic var isSelected : Bool = false
 
-    var parentIssue: Issue { return _issues.first! }
-    private let _issues = LinkingObjects(fromType: Issue.self, property: "quickNotes")
-
-
     // Following are entered by the user only (not from the server), and sent to the server
     var recommendations = List<Recommendation>()
 

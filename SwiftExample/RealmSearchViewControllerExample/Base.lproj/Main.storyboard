@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Realm Blogs-->
+        <!--Recommendations-->
         <scene sceneID="B6N-T0-PBu">
             <objects>
                 <tableViewController id="pNu-Lp-XI3" customClass="BlogSearchViewController" customModule="RealmSearchViewControllerExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,6 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="C4N-gJ-uvU">
+                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Add a Recommendation"/>
+                            <connections>
+                                <action selector="addARecommendation:" destination="pNu-Lp-XI3" eventType="touchUpInside" id="6rH-rV-QVZ"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" id="TUJ-uU-vkI">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -32,13 +40,22 @@
                             <outlet property="delegate" destination="pNu-Lp-XI3" id="8cQ-kg-ddi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Realm Blogs" id="0xp-Zs-diE"/>
+                    <navigationItem key="navigationItem" title="Recommendations" id="0xp-Zs-diE">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Anc-ep-QXU">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="vE4-Xs-IoX">
+                                <rect key="frame" x="337" y="11" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                            <connections>
+                                <action selector="didTapAddRecommendation:" destination="pNu-Lp-XI3" id="y95-td-Wmy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="entityName" value="BlogObject"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="searchPropertyKeyPath" value="title"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="entityName" value="Recommendation"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="searchPropertyKeyPath" value="recommendationString"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="useContainsSearch" value="YES"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sortAscending" value="NO"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sortPropertyKey" value="date"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NqG-3v-lfF" userLabel="First Responder" sceneMemberID="firstResponder"/>

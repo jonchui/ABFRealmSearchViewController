@@ -10,6 +10,15 @@ import Foundation
 import RealmSwift
 import ObjectMapper
 
+class AddRecommendationObject: Object {
+    dynamic var potentialString = ""
+
+    convenience init(potentialString: String) {
+        self.init()
+        self.potentialString = potentialString
+    }
+}
+
 class Recommendation: Object, Mappable {
 
     // Following are entered by the user only (not from the server), and sent to the server
@@ -20,8 +29,6 @@ class Recommendation: Object, Mappable {
     var parentQuicknote: QuickNote { return quicknotes.first! }
     // quicknote that link to me
     private let quicknotes = LinkingObjects(fromType: QuickNote.self, property: "recommendations")
-
-    var parentIssue: Issue { return parentQuicknote.parentIssue }
 
     convenience init(recommendationString: String) {
         self.init()
