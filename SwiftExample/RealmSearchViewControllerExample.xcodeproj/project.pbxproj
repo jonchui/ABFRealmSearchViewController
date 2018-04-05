@@ -23,6 +23,7 @@
 		A70A2FDE20574A5300DFE5F4 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FDA20574A5300DFE5F4 /* Recommendation.swift */; };
 		A70A2FDF20574A5300DFE5F4 /* Labor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FDB20574A5300DFE5F4 /* Labor.swift */; };
 		A70A2FE020574A5300DFE5F4 /* QuickNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FDC20574A5300DFE5F4 /* QuickNote.swift */; };
+		A78711AF2075C54F007968AC /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78711AE2075C54F007968AC /* MainTableViewController.swift */; };
 		F4680B4E1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4680B4D1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		A70A2FDA20574A5300DFE5F4 /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
 		A70A2FDB20574A5300DFE5F4 /* Labor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labor.swift; sourceTree = "<group>"; };
 		A70A2FDC20574A5300DFE5F4 /* QuickNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickNote.swift; sourceTree = "<group>"; };
+		A78711AE2075C54F007968AC /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		F4680B4D1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadOnlyBlogSearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +128,7 @@
 				A0017FBA1BBF540C0068764D /* BlogPostTableViewCell.xib */,
 				A0017FBD1BBF58860068764D /* blog.json */,
 				A0017FBE1BBF58860068764D /* emoji.json */,
+				A78711AE2075C54F007968AC /* MainTableViewController.swift */,
 			);
 			path = RealmSearchViewControllerExample;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78711AF2075C54F007968AC /* MainTableViewController.swift in Sources */,
 				A096D1BD1BBF30590012AA26 /* RealmSearchViewController.swift in Sources */,
 				A70A2FE020574A5300DFE5F4 /* QuickNote.swift in Sources */,
 				A0EF1AE81BBE01D100DC7122 /* AppDelegate.swift in Sources */,

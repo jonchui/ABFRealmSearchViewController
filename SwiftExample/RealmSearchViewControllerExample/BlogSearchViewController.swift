@@ -11,7 +11,7 @@ import RealmSwift
 import TOWebViewController
 
 class BlogSearchViewController: RealmSearchViewController {
-    
+
     @IBAction func didTapAddRecommendation(_ sender: Any) {
         let searchText = "test recommendation"
         self.realm.add(Recommendation.init(recommendationString: searchText))
@@ -31,6 +31,9 @@ class BlogSearchViewController: RealmSearchViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         self.tableView.register(UINib(nibName: "BlogPostTableViewCell", bundle: nil), forCellReuseIdentifier: BlogCellIdentifier)
+
+        self.title = self.entityName
+
     }
 
     /// Performs the search again with the current text input and base predicate
@@ -51,7 +54,12 @@ class BlogSearchViewController: RealmSearchViewController {
     }
     override func searchViewController(_ controller: RealmSearchViewController, cellForObject object: Object, atIndexPath indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: BlogCellIdentifier) as! BlogPostTableViewCell
-        
+
+        // delete everything first
+        cell.emojiLabel.text = nil
+        cell.contentLabel.text = nil
+        cell.dateLabel.text = nil
+
         if let blog = object as? BlogObject {
             cell.emojiLabel.text = blog.emoji
             
@@ -62,13 +70,8 @@ class BlogSearchViewController: RealmSearchViewController {
             cell.dateLabel.text = self.dateFormatter.string(from: blog.date)
         } else if let rec = object as? Recommendation {
             cell.titleLabel.text = rec.recommendationString
-
-            cell.emojiLabel.text = nil
-
-            cell.contentLabel.text = nil
-
-            cell.dateLabel.text = nil
-
+        } else if let qn = object as? QuickNote {
+            cell.titleLabel.text = qn.note
         }
         
         return cell
@@ -85,7 +88,13 @@ class BlogSearchViewController: RealmSearchViewController {
             self.present(navigationController, animated: true, completion: nil)
         } else if let addObject = anObject as? AddRecommendationObject {
             try! self.realm.write {
-                self.realm.add(Recommendation.init(recommendationString: addObject.potentialString))
+                if self.entityName == "Recommendation" {
+                    self.realm.add(Recommendation.init(recommendationString: addObject.potentialString))
+                } else if self.entityName == "QuickNote" {
+                    self.realm.add(QuickNote.init(note: addObject.potentialString, isSelected: true))
+                } else {
+                    print("no support for object type: \(self.entityName)")
+                }
             }
             // act as if you clicked this object
         }
