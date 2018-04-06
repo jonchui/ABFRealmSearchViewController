@@ -7,12 +7,22 @@
 //
 
 import UIKit
+import RealmSwift
 
-class MainTableViewController: UITableViewController {
+class MainTableViewController: UITableViewController, UISearchBarDelegate, RealmSearchResultsDelegate {
+
+    var objects = [QuickNote]()
+
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.performSegue(withIdentifier: "pushquicknote", sender: self)
+        return false
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+            self.title = "search or add an object"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -25,27 +35,27 @@ class MainTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-//    // MARK: - Table view data source
-//
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
+    // MARK: - Table view data source
 
-    /*
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return objects.count
+    }
+
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "subtitlecell", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = objects[indexPath.row].note
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -55,17 +65,17 @@ class MainTableViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            objects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+
 
     /*
     // Override to support rearranging the table view.
@@ -88,13 +98,34 @@ class MainTableViewController: UITableViewController {
      In a storyboard-based application, you will often want to do a little preparation before navigation
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        let detailVC = segue.destination as! RealmSearchViewController
+
         if let indexPath = tableView.indexPathForSelectedRow{
-            let selectedRow = indexPath.row
-            let detailVC = segue.destination as! RealmSearchViewController
             let cell = tableView.cellForRow(at: indexPath)
             detailVC.entityName = cell?.textLabel?.text
             detailVC.searchPropertyKeyPath = cell?.detailTextLabel?.text
+        } else if segue.identifier == "pushquicknote" {
+            let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 0))
+            detailVC.entityName = "QuickNote"
+            detailVC.searchPropertyKeyPath = "note"
         }
+
+        detailVC.resultsDelegate = self
+    }
+
+    func searchViewController(_ controller: RealmSearchViewController, didSelectObject anObject: Object, atIndexPath indexPath: IndexPath) {
+        objects.append(anObject as! QuickNote)
+        self.dismiss(animated: false) { [weak self] in
+            let row = min(0,(self?.objects.count)!-1)
+//            self?.tableView.reloadRows(at: [IndexPath.init(row: row, section: 0)], with: UITableViewRowAnimation.bottom)
+            self?.tableView.reloadData()
+        }
+        print("selected object: \(anObject)")
+    }
+
+    func searchViewController(_ controller: RealmSearchViewController, willSelectObject anObject: Object, atIndexPath indexPath: IndexPath) {
+        print("will select")
     }
 
 

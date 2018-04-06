@@ -12,11 +12,6 @@ import TOWebViewController
 
 class BlogSearchViewController: RealmSearchViewController {
 
-    @IBAction func didTapAddRecommendation(_ sender: Any) {
-        let searchText = "test recommendation"
-        self.realm.add(Recommendation.init(recommendationString: searchText))
-    }
-
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = DateFormatter.Style.short
@@ -33,7 +28,13 @@ class BlogSearchViewController: RealmSearchViewController {
         self.tableView.register(UINib(nibName: "BlogPostTableViewCell", bundle: nil), forCellReuseIdentifier: BlogCellIdentifier)
 
         self.title = self.entityName
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            self.searchBar.becomeFirstResponder()
+        }
     }
 
     /// Performs the search again with the current text input and base predicate
@@ -45,13 +46,7 @@ class BlogSearchViewController: RealmSearchViewController {
         // refereshes with the search string
         super.refreshSearchResults()
     }
-    
-    @IBAction func addARecommendation(_ sender: Any) {
-        let searchText = "test recommendation"
-        try! self.realm.write {
-            self.realm.add(Recommendation.init(recommendationString: searchText))
-        }
-    }
+
     override func searchViewController(_ controller: RealmSearchViewController, cellForObject object: Object, atIndexPath indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: BlogCellIdentifier) as! BlogPostTableViewCell
 
