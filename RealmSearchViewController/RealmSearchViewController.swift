@@ -401,6 +401,12 @@ extension RealmSearchViewController {
             
             return indexPath
         }
+
+        DispatchQueue.main.async {
+            self.searchController.isActive = false
+            self.view.endEditing(true)
+            self.searchBar.resignFirstResponder()
+        }
         
         return nil
     }
