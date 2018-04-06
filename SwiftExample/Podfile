@@ -3,5 +3,6 @@ use_frameworks!
 target 'RealmSearchViewControllerExample' do
   pod 'RealmSwift', '>=0.100.0'
   pod 'TOWebViewController'
+  pod 'ObjectMapper'
 end
 

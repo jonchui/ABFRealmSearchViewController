@@ -148,9 +148,7 @@ open class RealmSearchViewController: UITableViewController, RealmSearchResultsD
     }
     
     /// The Realm in which the given entity resides in
-    open var realm: Realm {
-        return try! Realm(configuration: self.realmConfiguration)
-    }
+    open var realm: Realm?
     
     /// The underlying search results
     open var results: RLMResults<RLMObject>?
@@ -197,6 +195,10 @@ open class RealmSearchViewController: UITableViewController, RealmSearchResultsD
     // MARK: UIViewController
     override open func viewDidLoad() {
         super.viewDidLoad()
+
+        if (realm == nil) {
+            assert(false)
+        }
         
         self.viewIsLoaded = true
         
@@ -374,31 +376,78 @@ open class RealmSearchViewController: UITableViewController, RealmSearchResultsD
             })
         }
     }
+
+    func showAddCustomCell() -> Bool {
+        if (self.searchController.searchBar.text == nil) {
+            return false
+        }
+        return !self.searchController.searchBar.text!.isEmpty
+    }
 }
 
 // MARK: UITableViewDelegate
 extension RealmSearchViewController {
     open override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if let results = self.results {
-            let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
-            let object = baseObject as! Object
+            let object : Object
+            if (indexPath.row == 0 && self.showAddCustomCell()) {
+                object = AddRecommendationObject(potentialString:self.searchBar.text!)
+            } else {
+                let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
+                object = baseObject as! Object
+            }
             
             self.resultsDelegate.searchViewController(self, willSelectObject: object, atIndexPath: indexPath)
             
             return indexPath
+        }
+
+        DispatchQueue.main.async {
+            self.searchController.isActive = false
+            self.view.endEditing(true)
+            self.searchBar.resignFirstResponder()
         }
         
         return nil
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if let results = self.results {
-            let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
-            let object = baseObject as! Object
-            
-            self.resultsDelegate.searchViewController(self, didSelectObject: object, atIndexPath: indexPath)
+        if (indexPath.row == 0 && self.showAddCustomCell()) {
+            // add custom cell
+            self.resultsDelegate.searchViewController(self, didSelectObject: AddRecommendationObject(potentialString:self.searchBar.text!), atIndexPath: indexPath)
+            self.searchController.isActive = false
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+
+            if let results = self.results {
+                let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
+                let object = baseObject as! Object
+
+                self.resultsDelegate.searchViewController(self, didSelectObject: object, atIndexPath: indexPath)
+            }
+        }
+    }
+
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if (showAddCustomCell()) {
+            return false
+        }
+        return true
+    }
+
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
+
+            if let results = self.results {
+                let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
+                let object = baseObject as! Object
+                try! self.realm?.write {
+                    self.realm?.delete(object)
+                }
+            }
+
+            //tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
@@ -406,20 +455,41 @@ extension RealmSearchViewController {
 // MARK: UITableViewControllerDataSource
 extension RealmSearchViewController {
     open override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+return 1
+        
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        var numRows = 0
         if let results = self.results {
-            return Int(results.count)
+            numRows = Int(results.count)
+        }
+        if (self.showAddCustomCell()) {
+            numRows = numRows + 1
         }
         
-        return 0
+        return numRows
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0 && self.showAddCustomCell()) {
+            // show the cell "add"
+               let cell = self.tableView.dequeueReusableCell(withIdentifier: BlogCellIdentifier) as! BlogPostTableViewCell
+
+            cell.emojiLabel.text = nil
+
+            cell.contentLabel.text = nil
+
+            cell.dateLabel.text = nil
+
+            cell.titleLabel.text = "Add \"\(self.searchBar.text!)\""
+            return cell
+        }
+
         if let results = self.results {
-            let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
+            let row =  self.showAddCustomCell() ? indexPath.row - 1 : indexPath.row
+            let baseObject = results.object(at: UInt(row)) as RLMObjectBase
             let object = baseObject as! Object
             
             let cell = self.resultsDataSource.searchViewController(self, cellForObject: object, atIndexPath: indexPath)

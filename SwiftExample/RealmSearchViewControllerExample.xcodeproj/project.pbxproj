@@ -19,6 +19,11 @@
 		A0EF1AEF1BBE01D100DC7122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0EF1AEE1BBE01D100DC7122 /* Assets.xcassets */; };
 		A0EF1AF21BBE01D100DC7122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF1AF01BBE01D100DC7122 /* LaunchScreen.storyboard */; };
 		A0EF1AFA1BBEF22500DC7122 /* BlogObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF1AF91BBEF22500DC7122 /* BlogObject.swift */; };
+		A70A2FDD20574A5300DFE5F4 /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FD920574A5200DFE5F4 /* Part.swift */; };
+		A70A2FDE20574A5300DFE5F4 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FDA20574A5300DFE5F4 /* Recommendation.swift */; };
+		A70A2FDF20574A5300DFE5F4 /* Labor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FDB20574A5300DFE5F4 /* Labor.swift */; };
+		A70A2FE020574A5300DFE5F4 /* QuickNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70A2FDC20574A5300DFE5F4 /* QuickNote.swift */; };
+		A78711AF2075C54F007968AC /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78711AE2075C54F007968AC /* MainTableViewController.swift */; };
 		F4680B4E1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4680B4D1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +44,11 @@
 		A0EF1AF11BBE01D100DC7122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0EF1AF31BBE01D100DC7122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0EF1AF91BBEF22500DC7122 /* BlogObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogObject.swift; sourceTree = "<group>"; };
+		A70A2FD920574A5200DFE5F4 /* Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
+		A70A2FDA20574A5300DFE5F4 /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
+		A70A2FDB20574A5300DFE5F4 /* Labor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labor.swift; sourceTree = "<group>"; };
+		A70A2FDC20574A5300DFE5F4 /* QuickNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickNote.swift; sourceTree = "<group>"; };
+		A78711AE2075C54F007968AC /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		F4680B4D1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadOnlyBlogSearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,10 +120,15 @@
 				A0EF1AF01BBE01D100DC7122 /* LaunchScreen.storyboard */,
 				A0EF1AF31BBE01D100DC7122 /* Info.plist */,
 				A0EF1AF91BBEF22500DC7122 /* BlogObject.swift */,
+				A70A2FDB20574A5300DFE5F4 /* Labor.swift */,
+				A70A2FD920574A5200DFE5F4 /* Part.swift */,
+				A70A2FDC20574A5300DFE5F4 /* QuickNote.swift */,
+				A70A2FDA20574A5300DFE5F4 /* Recommendation.swift */,
 				A0017FB91BBF540C0068764D /* BlogPostTableViewCell.swift */,
 				A0017FBA1BBF540C0068764D /* BlogPostTableViewCell.xib */,
 				A0017FBD1BBF58860068764D /* blog.json */,
 				A0017FBE1BBF58860068764D /* emoji.json */,
+				A78711AE2075C54F007968AC /* MainTableViewController.swift */,
 			);
 			path = RealmSearchViewControllerExample;
 			sourceTree = "<group>";
@@ -153,6 +168,7 @@
 				TargetAttributes = {
 					A0EF1AE31BBE01D100DC7122 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 95SQZWPATT;
 						LastSwiftMigration = 0820;
 					};
 				};
@@ -198,13 +214,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RealmSearchViewControllerExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1EA726D48C4A2431EE0F9704 /* [CP] Embed Pods Frameworks */ = {
@@ -213,9 +232,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RealmSearchViewControllerExample/Pods-RealmSearchViewControllerExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/TOWebViewController/TOWebViewController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TOWebViewController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -244,11 +272,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78711AF2075C54F007968AC /* MainTableViewController.swift in Sources */,
 				A096D1BD1BBF30590012AA26 /* RealmSearchViewController.swift in Sources */,
+				A70A2FE020574A5300DFE5F4 /* QuickNote.swift in Sources */,
 				A0EF1AE81BBE01D100DC7122 /* AppDelegate.swift in Sources */,
+				A70A2FDD20574A5300DFE5F4 /* Part.swift in Sources */,
 				F4680B4E1D01DEC30022F04C /* ReadOnlyBlogSearchViewController.swift in Sources */,
+				A70A2FDE20574A5300DFE5F4 /* Recommendation.swift in Sources */,
 				A0017FBB1BBF540C0068764D /* BlogPostTableViewCell.swift in Sources */,
 				A0017FB81BBF53490068764D /* BlogSearchViewController.swift in Sources */,
+				A70A2FDF20574A5300DFE5F4 /* Labor.swift in Sources */,
 				A0EF1AFA1BBEF22500DC7122 /* BlogObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +396,7 @@
 			baseConfigurationReference = 9E7C1E85D0DA7876595BB9F9 /* Pods-RealmSearchViewControllerExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 95SQZWPATT;
 				INFOPLIST_FILE = RealmSearchViewControllerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Realm.RealmSearchViewControllerExample;
@@ -376,6 +410,7 @@
 			baseConfigurationReference = 767F08E4BAC218B602D10EF8 /* Pods-RealmSearchViewControllerExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 95SQZWPATT;
 				INFOPLIST_FILE = RealmSearchViewControllerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Realm.RealmSearchViewControllerExample;
