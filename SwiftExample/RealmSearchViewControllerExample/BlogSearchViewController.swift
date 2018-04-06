@@ -32,9 +32,16 @@ class BlogSearchViewController: RealmSearchViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        DispatchQueue.main.async {
-//            self.searchBar.becomeFirstResponder()
-//        }
+        DispatchQueue.main.async {
+            self.searchBar.becomeFirstResponder()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        DispatchQueue.main.async {
+            self.searchBar.resignFirstResponder()
+        }
     }
 
     /// Performs the search again with the current text input and base predicate
@@ -82,11 +89,11 @@ class BlogSearchViewController: RealmSearchViewController {
             
             self.present(navigationController, animated: true, completion: nil)
         } else if let addObject = anObject as? AddRecommendationObject {
-            try! self.realm.write {
+            try! self.realm?.write {
                 if self.entityName == "Recommendation" {
-                    self.realm.add(Recommendation.init(recommendationString: addObject.potentialString))
+                    self.realm?.add(Recommendation.init(recommendationString: addObject.potentialString))
                 } else if self.entityName == "QuickNote" {
-                    self.realm.add(QuickNote.init(note: addObject.potentialString, isSelected: true))
+                    self.realm?.add(QuickNote.init(note: addObject.potentialString, isSelected: true))
                 } else {
                     print("no support for object type: \(self.entityName)")
                 }

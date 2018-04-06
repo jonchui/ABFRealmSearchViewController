@@ -18,6 +18,8 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate, Realm
         return false
     }
 
+    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration)
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,11 +113,23 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate, Realm
             detailVC.searchPropertyKeyPath = "note"
         }
 
+        detailVC.realm = self.realm
         detailVC.resultsDelegate = self
     }
 
     func searchViewController(_ controller: RealmSearchViewController, didSelectObject anObject: Object, atIndexPath indexPath: IndexPath) {
-        objects.append(anObject as! QuickNote)
+        let quicknoteObject : QuickNote
+        if let addObject = anObject as? AddRecommendationObject {
+            quicknoteObject = QuickNote.init(note: addObject.potentialString, isSelected: true)
+            try! self.realm.write {
+                self.realm.add(quicknoteObject)
+            }
+        } else {
+            quicknoteObject = anObject as! QuickNote
+        }
+
+//        controller.searchBar.resignFirstResponder()
+        objects.append(quicknoteObject)
 
         self.dismiss(animated: true) { [weak self] in
             let row = min(0,(self?.objects.count)!-1)

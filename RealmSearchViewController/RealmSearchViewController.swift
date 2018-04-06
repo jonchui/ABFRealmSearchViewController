@@ -148,9 +148,7 @@ open class RealmSearchViewController: UITableViewController, RealmSearchResultsD
     }
     
     /// The Realm in which the given entity resides in
-    open var realm: Realm {
-        return try! Realm(configuration: self.realmConfiguration)
-    }
+    open var realm: Realm?
     
     /// The underlying search results
     open var results: RLMResults<RLMObject>?
@@ -197,6 +195,10 @@ open class RealmSearchViewController: UITableViewController, RealmSearchResultsD
     // MARK: UIViewController
     override open func viewDidLoad() {
         super.viewDidLoad()
+
+        if (realm == nil) {
+            assert(false)
+        }
         
         self.viewIsLoaded = true
         
@@ -434,8 +436,8 @@ extension RealmSearchViewController {
             if let results = self.results {
                 let baseObject = results.object(at: UInt(indexPath.row)) as RLMObjectBase
                 let object = baseObject as! Object
-                try! self.realm.write {
-                    self.realm.delete(object)
+                try! self.realm?.write {
+                    self.realm?.delete(object)
                 }
             }
 
