@@ -32,9 +32,9 @@ class BlogSearchViewController: RealmSearchViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.async {
-            self.searchBar.becomeFirstResponder()
-        }
+//        DispatchQueue.main.async {
+//            self.searchBar.becomeFirstResponder()
+//        }
     }
 
     /// Performs the search again with the current text input and base predicate

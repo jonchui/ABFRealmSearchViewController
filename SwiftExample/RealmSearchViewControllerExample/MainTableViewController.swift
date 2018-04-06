@@ -116,11 +116,12 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate, Realm
 
     func searchViewController(_ controller: RealmSearchViewController, didSelectObject anObject: Object, atIndexPath indexPath: IndexPath) {
         objects.append(anObject as! QuickNote)
-        self.dismiss(animated: false) { [weak self] in
+
+        self.dismiss(animated: true) { [weak self] in
             let row = min(0,(self?.objects.count)!-1)
 //            self?.tableView.reloadRows(at: [IndexPath.init(row: row, section: 0)], with: UITableViewRowAnimation.bottom)
-            self?.tableView.reloadData()
         }
+        self.tableView.reloadData()
         print("selected object: \(anObject)")
     }
 
